@@ -1,0 +1,50 @@
+service: serverless-taller
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+  environment:
+    SERVERLESS_DB_TODO: !Ref ToDoDB
+
+custom:
+  prefix: taller-${self:provider.stage}  #Prefijo personalizado para los recursos en AWS
+
+functions:
+  todo:
+    handler: ./src/todo/todo.handler
+    role: todoRole
+    events:
+      - http:
+          path: /todos
+          method: get
+      - http:
+          path: /todos
+          method: post
+      - http:
+          path: /todos/{todo-id}
+          method: put
+      - http:
+          path: /todos/{todo-id}
+          method: get
+      - http:
+          path: /todos/{todo-id}
+          method: delete
+
+
+# you can add CloudFormation resource templates here
+resources:
+  Resources:
+    # Dynamo DB's
+    ToDoDB: ${file(resources/dynamodb.yml):ToDoDB}
+
+    # IAM Roles
+    todoRole: ${file(resources/roles.yml):todoRole}
+
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"

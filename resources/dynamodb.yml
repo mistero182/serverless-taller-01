@@ -1,0 +1,11 @@
+  ToDoDB:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.prefix}-todo
+      AttributeDefinitions:
+        - AttributeName: id_item
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id_item
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

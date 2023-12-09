@@ -1,0 +1,13 @@
+{
+  "name": "taller-serverless",
+  "version": "1.0.0",
+  "description": "Taller serverless",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ocuba",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "aws-sdk": "^2.1515.0"
+  }
+}
